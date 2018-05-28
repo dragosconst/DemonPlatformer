@@ -4,3 +4,5 @@ Ok deci am facut clasa aia de baza controllable si clasa playerului, am citit ni
 Pt composition:
 - https://en.wikipedia.org/wiki/Composition_over_inheritance;
 - https://www.thoughtworks.com/insights/blog/composition-vs-inheritance-how-choose.
+
+Am adaugat la proiect doar chestiile de care e neaparat nevoie, nu cred ca trebuie incluse si Binaries Intermediate etc., dar sa mi dai un mesaj daca nu merge proiectu fara ele.
