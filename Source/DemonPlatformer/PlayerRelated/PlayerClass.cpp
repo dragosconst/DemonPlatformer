@@ -31,9 +31,6 @@ void APlayerClass::MoveRight(float value)
 
 		_flipbook->SetFlipbook(walking);
 	}
-}
-//pt a schimba animatia in _idle!!!APARENT NU MERGE-> E IN BLUEPRINT IMPLEMENTAT ASTA
-void APlayerClass::ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	_flipbook->SetFlipbook(idle);
+	else // ca sa schimbe animatia, cred ca e ok asa ( am sters ce era in BP)
+		_flipbook->SetFlipbook(idle);
 }

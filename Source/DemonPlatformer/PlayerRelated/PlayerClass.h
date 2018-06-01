@@ -21,9 +21,6 @@ protected:
 	// trebuie schimbata un pic logica pt animatiile walking si idle
 	virtual void MoveRight(float value) override;
 
-	//pt a schimba animatia in _idle!!!APARENT NU MERGE
-	virtual void ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-
 public:
 	APlayerClass();
 	
