@@ -8,6 +8,12 @@
 
 APlayerClass::APlayerClass() : AControllable::AControllable()
 {
+
+	//initializare pseudo state machine
+	_isIdle = true;
+	_isWalking = false;
+	_isJumping = false;
+
 	//initializez animatiile de walking si idle in constructor
 	walking = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcwalk_flip"), NULL, LOAD_None, NULL);
 
@@ -16,10 +22,48 @@ APlayerClass::APlayerClass() : AControllable::AControllable()
 	_flipbook->SetFlipbook(idle);
 }
 
+void APlayerClass::Tick(float DeltaTime)
+{
+	AControllable::Tick(DeltaTime);
+
+	//bad practice, dar nu am o idee mai buna momentan, asta e sa-si dea seama daca nu mai sare
+	if (_isJumping && GetVelocity().Z == 0)
+	{
+		_isJumping = false;
+		_isIdle = true;
+		_isWalking = false;
+		_flipbook->SetFlipbook(idle);
+
+	}
+}
+
+// Called to bind functionality to input
+void APlayerClass::SetupPlayerInputComponent(UInputComponent * PlayerInputComponent)
+{
+	AControllable::SetupPlayerInputComponent(PlayerInputComponent);
+	
+	PlayerInputComponent->BindTouch(IE_Pressed, this, &APlayerClass::OnTouch);
+	PlayerInputComponent->BindTouch(IE_Released, this, &APlayerClass::ReleasedTouch);
+}
+
+
+//handle touch event
+void APlayerClass::OnTouch(ETouchIndex::Type FingerIndex, FVector Location)
+{
+	//fara double jumping, cel putin pana cand avem un state machine decent
+	if (!_isJumping)
+	{
+		LaunchCharacter(FVector(GetVelocity().X, GetVelocity().Y, 4000), false, false);
+		_isJumping = true;
+		_isIdle = false;
+		_isWalking = false;
+	}
+}
 
 // trebuie schimbata un pic logica pt animatiile walking si idle
 void APlayerClass::MoveRight(float value)
 {
+
 	AControllable::MoveRight(value);
 	if (value)
 	{
@@ -29,8 +73,34 @@ void APlayerClass::MoveRight(float value)
 		else
 			_flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
 
-		_flipbook->SetFlipbook(walking);
+		//sa nu dea play la animatia de walking cand e in aer
+		if (_isIdle)
+		{
+			_flipbook->SetFlipbook(walking);
+			_isWalking = true;
+			_isIdle = false;
+			_isJumping = false;
+		}
 	}
-	else // ca sa schimbe animatia, cred ca e ok asa ( am sters ce era in BP)
-		_flipbook->SetFlipbook(idle);
+	else
+	{
+		// cand sta pe loc pe jos
+		if (!_isJumping)
+		{
+			_isWalking = false;
+			_isIdle = true;
+			_isJumping = false;
+			_flipbook->SetFlipbook(idle);
+		}
+	}
+}
+
+
+void APlayerClass::ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+{
+	//o mica schema, cand nu mai tine apasat il arunca cu viteza negativa in jos ca sa opreasca saltul
+	if (_isJumping)
+	{
+		LaunchCharacter(FVector(GetVelocity().X, GetVelocity().Y, -1500), false, false);
+	}
 }
