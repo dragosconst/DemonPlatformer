@@ -15,11 +15,13 @@ APlayerClass::APlayerClass() : AControllable::AControllable()
 	_isJumping = false;
 
 	//initializez animatiile de walking si idle in constructor
-	walking = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcwalk_flip"), NULL, LOAD_None, NULL);
+	flip_walking = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcwalk_flip"), NULL, LOAD_None, NULL);
 
-	idle = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcidle_flip"), NULL, LOAD_None, NULL);
+	flip_idle = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcidle_flip"), NULL, LOAD_None, NULL);
 
-	_flipbook->SetFlipbook(idle);
+	flip_jump = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcjump_flip"), NULL, LOAD_None, NULL);
+
+	_flipbook->SetFlipbook(flip_idle);
 }
 
 void APlayerClass::Tick(float DeltaTime)
@@ -32,8 +34,10 @@ void APlayerClass::Tick(float DeltaTime)
 		_isJumping = false;
 		_isIdle = true;
 		_isWalking = false;
-		_flipbook->SetFlipbook(idle);
 
+		_flipbook->SetLooping(true);
+		_flipbook->SetFlipbook(flip_idle);
+		_flipbook->Play();
 	}
 }
 
@@ -57,6 +61,11 @@ void APlayerClass::OnTouch(ETouchIndex::Type FingerIndex, FVector Location)
 		_isJumping = true;
 		_isIdle = false;
 		_isWalking = false;
+
+		//da play doar odata la animatia de salt
+		_flipbook->SetLooping(false);
+		_flipbook->SetFlipbook(flip_jump);
+		_flipbook->Play();
 	}
 }
 
@@ -74,12 +83,15 @@ void APlayerClass::MoveRight(float value)
 			_flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
 
 		//sa nu dea play la animatia de walking cand e in aer
-		if (_isIdle)
+		if (_isIdle && GetVelocity().Z == 0)
 		{
-			_flipbook->SetFlipbook(walking);
 			_isWalking = true;
 			_isIdle = false;
 			_isJumping = false;
+
+			_flipbook->SetLooping(true);
+			_flipbook->SetFlipbook(flip_walking);
+			_flipbook->Play();
 		}
 	}
 	else
@@ -90,7 +102,10 @@ void APlayerClass::MoveRight(float value)
 			_isWalking = false;
 			_isIdle = true;
 			_isJumping = false;
-			_flipbook->SetFlipbook(idle);
+
+			_flipbook->SetLooping(true);
+			_flipbook->SetFlipbook(flip_idle);
+			_flipbook->Play();
 		}
 	}
 }
@@ -101,6 +116,6 @@ void APlayerClass::ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVec
 	//o mica schema, cand nu mai tine apasat il arunca cu viteza negativa in jos ca sa opreasca saltul
 	if (_isJumping)
 	{
-		LaunchCharacter(FVector(GetVelocity().X, GetVelocity().Y, -1500), false, false);
+		LaunchCharacter(FVector(0, 0, -1500), false, false);
 	}
 }

@@ -14,8 +14,9 @@ class DEMONPLATFORMER_API APlayerClass : public AControllable
 {
 	GENERATED_BODY()
 
-	class UPaperFlipbook* walking;
-	class UPaperFlipbook* idle;
+	class UPaperFlipbook* flip_walking;
+	class UPaperFlipbook* flip_idle;
+	class UPaperFlipbook* flip_jump;
 
 	//crappy pseduo state machine
 	bool _isJumping;
