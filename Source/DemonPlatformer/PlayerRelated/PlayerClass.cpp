@@ -26,7 +26,7 @@ APlayerClass::APlayerClass() : AControllable::AControllable()
 
 	flip_jump = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcjump_flip"), NULL, LOAD_None, NULL);
 
-	_flipbook->SetFlipbook(flip_idle);
+	//_flipbook->SetFlipbook(flip_idle);
 }
 
 void APlayerClass::Tick(float DeltaTime)
@@ -50,12 +50,12 @@ void APlayerClass::Tick(float DeltaTime)
 void APlayerClass::SetupPlayerInputComponent(UInputComponent * PlayerInputComponent)
 {
 	//AControllable::SetupPlayerInputComponent(PlayerInputComponent);
-	Player_State* state = _state->handleInput(&*this, PlayerInputComponent);
+	Player_State* state = _state->handleInput(*this, PlayerInputComponent);
 	if (state)
 	{
 		delete _state;
 		_state = state;
-		_state->Enter(&*this);
+		_state->Enter(*this);
 	}
 	//PlayerInputComponent->BindTouch(IE_Pressed, this, &APlayerClass::OnTouch);
 	//PlayerInputComponent->BindTouch(IE_Released, this, &APlayerClass::ReleasedTouch);
