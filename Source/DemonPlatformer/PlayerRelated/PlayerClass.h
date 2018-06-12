@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PlayerRelated/FSM_player/Player_State.h"
 #include "PlayerRelated/Controllable.h"
 #include "PlayerClass.generated.h"
 
@@ -14,10 +15,8 @@ class DEMONPLATFORMER_API APlayerClass : public AControllable
 {
 	GENERATED_BODY()
 
-	class UPaperFlipbook* flip_walking;
-	class UPaperFlipbook* flip_idle;
-	class UPaperFlipbook* flip_jump;
-
+	//FSM
+	class Player_State* _state;
 	//crappy pseduo state machine
 	bool _isJumping;
 	bool _isWalking;
@@ -33,6 +32,12 @@ protected:
 	//handle touch event
 	virtual void OnTouch(ETouchIndex::Type FingerIndex, FVector Location);
 public:
+	class UPaperFlipbook* flip_walking;
+	class UPaperFlipbook* flip_idle;
+	class UPaperFlipbook* flip_jump;
+
+	//n am gasit alta metoda mai buna de a verifica daca a atins ecranu pt FSM decat folosind o variabila separata :/
+	bool touched;
 	APlayerClass();
 
 	// Called every frame

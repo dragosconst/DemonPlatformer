@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\DemonPlatformer.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{A146A902-0082-4360-9438-74B0D05D1861}</UniqueIdentifier>
+			<UniqueIdentifier>{2EBCD411-A42C-4A29-9427-3C4B65DD45E0}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\DemonPlatformer.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{807CFADA-D03D-4A9A-A0C7-294491AEF849}</UniqueIdentifier>
+			<UniqueIdentifier>{AA5281C7-289E-4ADD-85CD-8853DCBA21AB}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -28,7 +28,7 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\DemonPlatformer">
-			<UniqueIdentifier>{BBC7C796-024D-4702-815D-3B4B850E91DF}</UniqueIdentifier>
+			<UniqueIdentifier>{AA80D836-6E43-4BEE-B023-7B1793EB86B9}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\DemonPlatformer\DemonPlatformer.Build.cs">
 			<Filter>Source\DemonPlatformer</Filter>
@@ -46,7 +46,7 @@
 			<Filter>Source\DemonPlatformer</Filter>
 		</ClInclude >
 		<Filter Include="Source\DemonPlatformer\PlayerRelated">
-			<UniqueIdentifier>{2D9303FC-7DEC-42AC-B9E5-B13263D594A3}</UniqueIdentifier>
+			<UniqueIdentifier>{3552F647-7768-44D9-8167-1A52F4830C51}</UniqueIdentifier>
 		</Filter>
 		<ClCompile Include="..\..\Source\DemonPlatformer\PlayerRelated\Controllable.cpp">
 			<Filter>Source\DemonPlatformer\PlayerRelated</Filter>
@@ -59,6 +59,39 @@
 		</ClCompile >
 		<ClInclude Include="..\..\Source\DemonPlatformer\PlayerRelated\PlayerClass.h">
 			<Filter>Source\DemonPlatformer\PlayerRelated</Filter>
+		</ClInclude >
+		<Filter Include="Source\DemonPlatformer\PlayerRelated\FSM_player">
+			<UniqueIdentifier>{70CE022D-4ECD-407E-920C-096D76D2AC48}</UniqueIdentifier>
+		</Filter>
+		<ClCompile Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Falling.cpp">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Falling.h">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Idle.cpp">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Idle.h">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Jumping.cpp">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Jumping.h">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_State.cpp">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_State.h">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Walking.cpp">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\DemonPlatformer\PlayerRelated\FSM_player\Player_Walking.h">
+			<Filter>Source\DemonPlatformer\PlayerRelated\FSM_player</Filter>
 		</ClInclude >
 	</ItemGroup>
 </Project>

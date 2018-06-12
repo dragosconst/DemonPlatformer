@@ -2,6 +2,7 @@
 
 #include "PlayerClass.h"
 #include "Components/InputComponent.h"
+#include "PlayerRelated/FSM_player/Player_Idle.h"
 #include "PaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "CoreUObject.h"
@@ -9,10 +10,14 @@
 APlayerClass::APlayerClass() : AControllable::AControllable()
 {
 
+	_state = new Player_Idle();
+	_state->Enter(*this);
+
 	//initializare pseudo state machine
 	_isIdle = true;
 	_isWalking = false;
 	_isJumping = false;
+	touched = false;
 
 	//initializez animatiile de walking si idle in constructor
 	flip_walking = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcwalk_flip"), NULL, LOAD_None, NULL);
@@ -44,16 +49,23 @@ void APlayerClass::Tick(float DeltaTime)
 // Called to bind functionality to input
 void APlayerClass::SetupPlayerInputComponent(UInputComponent * PlayerInputComponent)
 {
-	AControllable::SetupPlayerInputComponent(PlayerInputComponent);
-	
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &APlayerClass::OnTouch);
-	PlayerInputComponent->BindTouch(IE_Released, this, &APlayerClass::ReleasedTouch);
+	//AControllable::SetupPlayerInputComponent(PlayerInputComponent);
+	Player_State* state = _state->handleInput(&*this, PlayerInputComponent);
+	if (state)
+	{
+		delete _state;
+		_state = state;
+		_state->Enter(&*this);
+	}
+	//PlayerInputComponent->BindTouch(IE_Pressed, this, &APlayerClass::OnTouch);
+	//PlayerInputComponent->BindTouch(IE_Released, this, &APlayerClass::ReleasedTouch);
 }
 
 
 //handle touch event
 void APlayerClass::OnTouch(ETouchIndex::Type FingerIndex, FVector Location)
 {
+	touched = true;
 	//fara double jumping, cel putin pana cand avem un state machine decent
 	if (!_isJumping)
 	{
@@ -113,6 +125,7 @@ void APlayerClass::MoveRight(float value)
 
 void APlayerClass::ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
+	touched = false;
 	//o mica schema, cand nu mai tine apasat il arunca cu viteza negativa in jos ca sa opreasca saltul
 	if (_isJumping)
 	{
