@@ -11,13 +11,11 @@ Player_State::~Player_State()
 {
 }
 
-void Player_State::Enter(APlayerClass &p)
+void Player_State::Enter(APlayerClass& player)
 {
-	player = &p;
 }
 
-Player_State * Player_State::handleInput(APlayerClass &, UInputComponent * PlayerInputComponent)
+Player_State* Player_State::handleInput(APlayerClass &, int inputType)
 {
-	return new Player_Idle();
+	return nullptr;
 }
-

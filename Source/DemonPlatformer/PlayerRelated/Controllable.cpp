@@ -19,7 +19,6 @@ AControllable::AControllable()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-
 	_flipbook = CreateDefaultSubobject<UPaperFlipbookComponent>("_flip");
 	_flipbook->RelativeLocation = FVector(0.0f, 0.0f, 0.0f);
 	_camera = CreateDefaultSubobject<UCameraComponent>("_camera");

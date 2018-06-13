@@ -12,35 +12,32 @@ Player_Jumping::~Player_Jumping()
 {
 }
 
-void Player_Jumping::Enter(APlayerClass &p)
+void Player_Jumping::Enter(APlayerClass& player)
 {
-	Player_State::Enter(p);
+	player._flipbook->SetLooping(false);
+	player._flipbook->SetFlipbook(player.flip_jump);
+	player._flipbook->Play();
 
-	p.LaunchCharacter(FVector(player->GetVelocity().X, player->GetVelocity().Y, 4000), false, false);
-
-	p._flipbook->SetLooping(false);
-	p._flipbook->SetFlipbook(p.flip_idle);
-	p._flipbook->Play();
+	player.LaunchCharacter(FVector(player.GetVelocity().X, player.GetVelocity().Y, 4000), false, false);
 }
 
-Player_State * Player_Jumping::handleInput(APlayerClass &p, UInputComponent * PlayerInputComponent)
+Player_State* Player_Jumping::handleInput(APlayerClass& player, int inputType)
 {
-	player = &p;
+	UInputComponent* PlayerInputComponent = player.InputComponent;
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("JUMPING CALLED"));
 
-	p.AddMovementInput(p.GetActorForwardVector(), PlayerInputComponent->GetAxisValue("MoveRight"));
-
-	if (PlayerInputComponent->GetAxisValue("MoveRight") < 0)
-		p._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
-	else
-		p._flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
-
-	if (p.GetVelocity().Z == 0)
+	if(inputType == MOVE)
 	{
-		return new Player_Idle();
+		if (PlayerInputComponent->GetAxisValue("MoveRight") < 0)
+			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
+		else
+			player._flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
 	}
-	if (p.touched == false || p.GetVelocity().Z < 0)
-	{
+	else if(inputType == RELEASE_TOUCH || player.GetVelocity().Z < 0)
 		return new Player_Falling();
-	}
+	
+	if (player.GetVelocity().Z == 0)
+		return new Player_Idle();
+
 	return nullptr;
 }

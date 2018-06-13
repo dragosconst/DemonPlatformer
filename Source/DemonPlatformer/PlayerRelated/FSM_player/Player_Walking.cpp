@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "Player_Walking.h"
 #include "PaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
@@ -12,33 +10,30 @@ Player_Walking::~Player_Walking()
 {
 }
 
-void Player_Walking::Enter(APlayerClass &p)
+void Player_Walking::Enter(APlayerClass& player)
 {
-
-	p._flipbook->SetLooping(true);
-	p._flipbook->SetFlipbook(p.flip_walking);
-	p._flipbook->Play();
+	player._flipbook->SetLooping(true);
+	player._flipbook->SetFlipbook(player.flip_walking);
+	player._flipbook->Play();
 }
 
-Player_State * Player_Walking::handleInput(APlayerClass &p, UInputComponent * PlayerInputComponent)
+Player_State* Player_Walking::handleInput(APlayerClass& player, int inputType)
 {
-	player = &p;
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("WALKING CALLED"));
+	UInputComponent* PlayerInputComponent = player.InputComponent;
 
-	p.AddMovementInput(p.GetActorForwardVector(), PlayerInputComponent->GetAxisValue("MoveRight"));
-
-	if (PlayerInputComponent->GetAxisValue("MoveRight") < 0)
-		p._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
-	else
-		p._flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
-
-	if (PlayerInputComponent->GetAxisValue("MoveRight") == 0)
+	if(inputType == MOVE)
 	{
-		return new Player_Idle();
+		int moveValue = PlayerInputComponent->GetAxisValue("MoveRight"); 
+		if (moveValue > 0)
+			player._flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
+		else if(moveValue < 0)
+			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
+		else
+			return new Player_Idle;
 	}
-
-	if (p.touched == true)
-	{
+	else if(inputType == TOUCH)
 		return new Player_Jumping();
-	}
+
 	return nullptr;
 }

@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -8,9 +6,6 @@
 #include "PlayerRelated/FSM_player/Player_Idle.h"
 #include "PlayerRelated/FSM_player/Player_Jumping.h"
 
-/**
- * 
- */
 class DEMONPLATFORMER_API Player_Falling : public Player_State
 {
 public:
@@ -18,8 +13,8 @@ public:
 	~Player_Falling();
 
 	//metoda pt intrarea in claa, in general schimba sprite-u
-	virtual void Enter(APlayerClass &);
+	virtual void Enter(APlayerClass&);
 
 	//metoda care se ocupa de input
-	virtual Player_State* handleInput(APlayerClass &, class UInputComponent* PlayerInputComponent);
+	virtual Player_State* handleInput(APlayerClass&, int inputType);
 };

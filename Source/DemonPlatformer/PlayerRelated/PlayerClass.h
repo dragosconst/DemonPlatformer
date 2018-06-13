@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,37 +5,36 @@
 #include "PlayerRelated/Controllable.h"
 #include "PlayerClass.generated.h"
 
-/**
- * 
- */
+enum InputType
+{
+	TOUCH,
+	RELEASE_TOUCH,
+	MOVE
+};
+
 UCLASS()
 class DEMONPLATFORMER_API APlayerClass : public AControllable
 {
 	GENERATED_BODY()
 
-	//FSM
+	// FSM
 	class Player_State* _state;
-	//crappy pseduo state machine
-	bool _isJumping;
-	bool _isWalking;
-	bool _isIdle;
 
 protected:
-	// trebuie schimbata un pic logica pt animatiile walking si idle
+
+	// functii pentru input
 	virtual void MoveRight(float value) override;
-
-
-	virtual void ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-
-	//handle touch event
 	virtual void OnTouch(ETouchIndex::Type FingerIndex, FVector Location);
+	virtual void ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
+	
+	// se apeleaza la fiecare functie de input
+	void changeState(int type);
+
 public:
 	class UPaperFlipbook* flip_walking;
 	class UPaperFlipbook* flip_idle;
 	class UPaperFlipbook* flip_jump;
 
-	//n am gasit alta metoda mai buna de a verifica daca a atins ecranu pt FSM decat folosind o variabila separata :/
-	bool touched;
 	APlayerClass();
 
 	// Called every frame
