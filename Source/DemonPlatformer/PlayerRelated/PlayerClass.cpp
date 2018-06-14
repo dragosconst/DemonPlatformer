@@ -15,6 +15,7 @@ APlayerClass::APlayerClass() : AControllable::AControllable()
 	flip_walking = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcwalk_flip"), NULL, LOAD_None, NULL);
 	flip_idle = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcidle_flip"), NULL, LOAD_None, NULL);
 	flip_jump = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcjump_flip"), NULL, LOAD_None, NULL);
+	flip_fall = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcfall_flip"), NULL, LOAD_None, NULL);
 
 	_state = new Player_Idle();
 	_state->Enter(*this);

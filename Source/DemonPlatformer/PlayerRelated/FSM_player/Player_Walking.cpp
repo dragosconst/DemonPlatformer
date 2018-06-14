@@ -24,16 +24,18 @@ Player_State* Player_Walking::handleInput(APlayerClass& player, int inputType)
 
 	if(inputType == MOVE)
 	{
-		int moveValue = PlayerInputComponent->GetAxisValue("MoveRight"); 
+		double moveValue = PlayerInputComponent->GetAxisValue("MoveRight"); 
 		if (moveValue > 0)
 			player._flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
 		else if(moveValue < 0)
 			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
 		else
-			return new Player_Idle;
+			return new Player_Idle();
 	}
 	else if(inputType == TOUCH)
 		return new Player_Jumping();
 
+	if (player.GetVelocity().Z < 0)
+		return new Player_Falling();
 	return nullptr;
 }

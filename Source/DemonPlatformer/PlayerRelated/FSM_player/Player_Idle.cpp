@@ -12,6 +12,7 @@ Player_Idle::~Player_Idle()
 
 void Player_Idle::Enter(APlayerClass& player)
 {
+	player._flipbook->SetLooping(true);
 	player._flipbook->SetFlipbook(player.flip_idle);
 	player._flipbook->Play();
 }
@@ -31,7 +32,7 @@ Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType)
 	}
 
 	else if(inputType == TOUCH)
-		return new Player_Jumping;
+		return new Player_Jumping();
 
 	return nullptr;
 }

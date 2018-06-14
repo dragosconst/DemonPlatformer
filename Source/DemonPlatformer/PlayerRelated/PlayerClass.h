@@ -34,6 +34,7 @@ public:
 	class UPaperFlipbook* flip_walking;
 	class UPaperFlipbook* flip_idle;
 	class UPaperFlipbook* flip_jump;
+	class UPaperFlipbook* flip_fall;
 
 	APlayerClass();
 

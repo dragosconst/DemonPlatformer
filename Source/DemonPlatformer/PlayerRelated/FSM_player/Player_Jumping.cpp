@@ -28,16 +28,14 @@ Player_State* Player_Jumping::handleInput(APlayerClass& player, int inputType)
 
 	if(inputType == MOVE)
 	{
-		if (PlayerInputComponent->GetAxisValue("MoveRight") < 0)
-			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
-		else
+		double moveValue = PlayerInputComponent->GetAxisValue("MoveRight");
+		if (moveValue > 0)
 			player._flipbook->SetRelativeRotation(FQuat(0, 0, 0, 0), false, nullptr, ETeleportType::None);
+		else if(moveValue < 0)
+			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
 	}
-	else if(inputType == RELEASE_TOUCH || player.GetVelocity().Z < 0)
+	if(inputType == RELEASE_TOUCH || player.GetVelocity().Z < 0 )
 		return new Player_Falling();
-	
-	if (player.GetVelocity().Z == 0)
-		return new Player_Idle();
 
 	return nullptr;
 }
