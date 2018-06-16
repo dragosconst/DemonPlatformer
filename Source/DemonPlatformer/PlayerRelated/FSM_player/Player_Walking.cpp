@@ -30,12 +30,21 @@ Player_State* Player_Walking::handleInput(APlayerClass& player, int inputType)
 		else if(moveValue < 0)
 			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
 		else
+		{
+			states.pop();
 			return new Player_Idle();
+		}
 	}
-	else if(inputType == TOUCH)
+	else if (inputType == TOUCH)
+	{
+		states.pop();
 		return new Player_Jumping();
+	}
 
 	if (player.GetVelocity().Z < 0)
+	{
+		states.pop();
 		return new Player_Falling();
+	}
 	return nullptr;
 }

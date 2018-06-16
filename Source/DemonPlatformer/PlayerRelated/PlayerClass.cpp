@@ -18,7 +18,8 @@ APlayerClass::APlayerClass() : AControllable::AControllable()
 	flip_fall = LoadObject<UPaperFlipbook>(NULL, TEXT("/Game/Sprites/Player/mcfall_flip"), NULL, LOAD_None, NULL);
 
 	_state = new Player_Idle();
-	_state->Enter(*this);
+	states.push(_state);
+	states.top()->Enter(*this);
 }
 
 void APlayerClass::Tick(float DeltaTime)
@@ -56,13 +57,11 @@ void APlayerClass::ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVec
 
 void APlayerClass::changeState(int type)
 {
-	Player_State* state = _state->handleInput(*this, type);
+	Player_State* state = states.top()->handleInput(*this, type);
 	if (state)
 	{
-		delete _state;
-		_state = state;
-		
-		_state->Enter(*this);
+		states.push(state);
+		states.top()->Enter(*this);
 	}
 }
 

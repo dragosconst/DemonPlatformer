@@ -32,8 +32,11 @@ Player_State* Player_Falling::handleInput(APlayerClass& player, int inputType)
 			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
 	}
 
-	if(player.GetVelocity().Z == 0)
+	if (player.GetVelocity().Z == 0)
+	{
+		states.top();
 		return new Player_Idle();
+	}
 
 	return nullptr;
 }
