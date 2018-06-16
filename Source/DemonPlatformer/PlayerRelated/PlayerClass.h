@@ -1,7 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PlayerRelated/FSM_player/Player_State.h"
+//#include "PlayerRelated/FSM_player/Player_State.h"
+#include <stack>
 #include "PlayerRelated/Controllable.h"
 #include "PlayerClass.generated.h"
 
@@ -11,6 +12,10 @@ enum InputType
 	RELEASE_TOUCH,
 	MOVE
 };
+
+class Player_State;
+
+std::stack<Player_State*> states;
 
 UCLASS()
 class DEMONPLATFORMER_API APlayerClass : public AControllable
