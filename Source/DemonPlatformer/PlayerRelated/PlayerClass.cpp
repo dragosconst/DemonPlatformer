@@ -1,13 +1,12 @@
-#include <EngineGlobals.h>
-#include <Runtime/Engine/Classes/Engine/Engine.h>
-
-
 #include "PlayerClass.h"
 #include "Components/InputComponent.h"
 #include "PlayerRelated/FSM_player/Player_Idle.h"
 #include "PaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "CoreUObject.h"
+
+#include <EngineGlobals.h>
+#include <Runtime/Engine/Classes/Engine/Engine.h>
 
 APlayerClass::APlayerClass() : AControllable::AControllable()
 {

@@ -11,7 +11,7 @@ class DEMONPLATFORMER_API Player_State
 {
 public:
 	Player_State();
-	~Player_State();
+	virtual ~Player_State();
 
 	//metoda pt intrarea in claa, in general schimba sprite-u
 	virtual void Enter(class APlayerClass&);
