@@ -36,7 +36,7 @@ Player_State* Player_Jumping::handleInput(APlayerClass& player, int inputType)
 	}
 	if (inputType == RELEASE_TOUCH || player.GetVelocity().Z < 0)
 	{
-		states.pop();
+		//states.Pop();
 		return new Player_Falling();
 	}
 

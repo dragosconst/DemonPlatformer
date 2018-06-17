@@ -1,8 +1,7 @@
 #pragma once
 
-#include "CoreMinimal.h"
-//#include "PlayerRelated/FSM_player/Player_State.h"
-#include <stack>
+#include "Core.h"
+#include "PlayerRelated/FSM_player/Player_State.h"
 #include "PlayerRelated/Controllable.h"
 #include "PlayerClass.generated.h"
 
@@ -15,7 +14,7 @@ enum InputType
 
 class Player_State;
 
-std::stack<Player_State*> states;
+
 
 UCLASS()
 class DEMONPLATFORMER_API APlayerClass : public AControllable
@@ -23,7 +22,8 @@ class DEMONPLATFORMER_API APlayerClass : public AControllable
 	GENERATED_BODY()
 
 	// FSM
-	class Player_State* _state;
+	//class Player_State* _state;
+	TArray<Player_State*> states;
 
 protected:
 

@@ -26,20 +26,20 @@ Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType)
 	{
 		if (PlayerInputComponent->GetAxisValue("MoveRight"))
 		{
-			states.pop();
+			//states.Pop();
 			return new Player_Walking();
 		}
 
 		if (player.GetVelocity().Z < 0)
 		{
-			states.pop();
+			//states.Pop();
 			return new Player_Falling();
 		}
 	}
 
 	else if (inputType == TOUCH)
 	{
-		states.pop();
+		//states.Pop();
 		return new Player_Jumping();
 	}
 

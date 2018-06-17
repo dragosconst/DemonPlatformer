@@ -34,7 +34,7 @@ Player_State* Player_Falling::handleInput(APlayerClass& player, int inputType)
 
 	if (player.GetVelocity().Z == 0)
 	{
-		states.top();
+		//states.Pop();
 		return new Player_Idle();
 	}
 

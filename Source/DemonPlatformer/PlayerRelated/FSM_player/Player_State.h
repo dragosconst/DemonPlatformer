@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Core.h"
 #include "PlayerRelated/PlayerClass.h"
 #include "Components/InputComponent.h"
 
