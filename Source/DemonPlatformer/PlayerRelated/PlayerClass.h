@@ -22,7 +22,6 @@ class DEMONPLATFORMER_API APlayerClass : public AControllable
 	GENERATED_BODY()
 
 	// FSM
-	//class Player_State* _state;
 	TArray<Player_State*> states;
 
 protected:

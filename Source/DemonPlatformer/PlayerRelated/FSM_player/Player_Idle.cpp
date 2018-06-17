@@ -17,7 +17,7 @@ void Player_Idle::Enter(APlayerClass& player)
 	player._flipbook->Play();
 }
 
-Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType)
+Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType, TArray<Player_State*>& states)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("IDLE CALLED"));
 	UInputComponent* PlayerInputComponent = player.InputComponent;
@@ -26,20 +26,20 @@ Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType)
 	{
 		if (PlayerInputComponent->GetAxisValue("MoveRight"))
 		{
-			//states.Pop();
+			states.Pop();
 			return new Player_Walking();
 		}
 
 		if (player.GetVelocity().Z < 0)
 		{
-			//states.Pop();
+			states.Pop();
 			return new Player_Falling();
 		}
 	}
 
 	else if (inputType == TOUCH)
 	{
-		//states.Pop();
+		states.Pop();
 		return new Player_Jumping();
 	}
 

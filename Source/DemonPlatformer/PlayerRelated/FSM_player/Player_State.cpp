@@ -13,7 +13,7 @@ void Player_State::Enter(APlayerClass& player)
 {
 }
 
-Player_State* Player_State::handleInput(class APlayerClass&, int inputType)
+Player_State* Player_State::handleInput(class APlayerClass&, int inputType, TArray<Player_State*>& states)
 {
 	return nullptr;
 }
