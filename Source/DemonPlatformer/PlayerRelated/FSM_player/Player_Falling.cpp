@@ -19,7 +19,7 @@ void Player_Falling::Enter(APlayerClass& player)
 	player._flipbook->Play();
 }
 
-Player_State* Player_Falling::handleInput(APlayerClass& player, int inputType, TArray<Player_State*>& states)
+Player_State* Player_Falling::handleInput(APlayerClass& player, int inputType)
 {
 	UInputComponent* PlayerInputComponent = player.InputComponent;
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("FALLING CALLED"));
@@ -34,7 +34,7 @@ Player_State* Player_Falling::handleInput(APlayerClass& player, int inputType, T
 
 	if (player.GetVelocity().Z == 0)
 	{
-		states.Pop();
+		//states.Pop();
 		return new Player_Idle();
 	}
 

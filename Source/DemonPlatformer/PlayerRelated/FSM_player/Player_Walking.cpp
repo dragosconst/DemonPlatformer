@@ -17,7 +17,7 @@ void Player_Walking::Enter(APlayerClass& player)
 	player._flipbook->Play();
 }
 
-Player_State* Player_Walking::handleInput(APlayerClass& player, int inputType, TArray<Player_State*>& states)
+Player_State* Player_Walking::handleInput(APlayerClass& player, int inputType)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("WALKING CALLED"));
 	UInputComponent* PlayerInputComponent = player.InputComponent;
@@ -31,19 +31,19 @@ Player_State* Player_Walking::handleInput(APlayerClass& player, int inputType, T
 			player._flipbook->SetRelativeRotation(FQuat(0, 0, 180, 0), false, nullptr, ETeleportType::None);
 		else
 		{
-			states.Pop();
+			//states.Pop();
 			return new Player_Idle();
 		}
 	}
 	else if (inputType == TOUCH)
 	{
-		states.Pop();
+		//states.Pop();
 		return new Player_Jumping();
 	}
 
 	if (player.GetVelocity().Z < 0)
 	{
-		states.Pop();
+//		states.Pop();
 		return new Player_Falling();
 	}
 	return nullptr;

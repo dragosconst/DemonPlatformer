@@ -56,9 +56,10 @@ void APlayerClass::ReleasedTouch(const ETouchIndex::Type FingerIndex, const FVec
 
 void APlayerClass::changeState(int type)
 {
-	Player_State* state = states.Top()->handleInput(*this, type, states);
+	Player_State* state = states.Top()->handleInput(*this, type);
 	if (state)
 	{
+		states.Pop();
 		states.Add(state);
 		states.Top()->Enter(*this);
 	}
