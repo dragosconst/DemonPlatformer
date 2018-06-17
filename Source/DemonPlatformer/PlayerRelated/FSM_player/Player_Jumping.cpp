@@ -21,7 +21,7 @@ void Player_Jumping::Enter(APlayerClass& player)
 	player.LaunchCharacter(FVector(player.GetVelocity().X, player.GetVelocity().Y, 4000), false, false);
 }
 
-Player_State* Player_Jumping::handleInput(APlayerClass& player, int inputType)
+Player_State* Player_Jumping::handleInput(APlayerClass& player, int inputType, TArray<Player_State*>& states)
 {
 	UInputComponent* PlayerInputComponent = player.InputComponent;
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("JUMPING CALLED"));
@@ -36,7 +36,7 @@ Player_State* Player_Jumping::handleInput(APlayerClass& player, int inputType)
 	}
 	if (inputType == RELEASE_TOUCH || player.GetVelocity().Z < 0)
 	{
-		//states.Pop();
+		states.Pop();
 		return new Player_Falling();
 	}
 

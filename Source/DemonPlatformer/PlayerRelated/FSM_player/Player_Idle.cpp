@@ -17,7 +17,7 @@ void Player_Idle::Enter(APlayerClass& player)
 	player._flipbook->Play();
 }
 
-Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType)
+Player_State* Player_Idle::handleInput(APlayerClass& player, int inputType, TArray<Player_State*>& states)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("IDLE CALLED"));
 	UInputComponent* PlayerInputComponent = player.InputComponent;

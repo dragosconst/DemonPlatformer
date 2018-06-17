@@ -16,5 +16,5 @@ public:
 	virtual void Enter(APlayerClass&);
 
 	//metoda care se ocupa de input
-	virtual Player_State* handleInput(APlayerClass&, int inputType);
+	virtual Player_State* handleInput(APlayerClass&, int inputType, TArray<Player_State*>& states);
 };
